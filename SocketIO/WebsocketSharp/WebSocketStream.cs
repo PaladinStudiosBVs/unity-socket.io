@@ -35,6 +35,7 @@ using System.Text;
 using System.Threading;
 using WebSocketSharp.Net;
 using WebSocketSharp.Net.Security;
+using CSTimer = System.Threading.Timer;
 
 namespace WebSocketSharp
 {
@@ -154,7 +155,7 @@ namespace WebSocketSharp
       where T : HandshakeBase
     {
       var timeout = false;
-      var timer = new Timer (
+      var timer = new CSTimer (
         state => {
           timeout = true;
           _innerStream.Close ();

@@ -44,6 +44,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using WebSocketSharp.Net.Security;
+using CSTimer = System.Threading.Timer;
 
 namespace WebSocketSharp.Net
 {
@@ -77,7 +78,7 @@ namespace WebSocketSharp.Net
     private Stream              _stream;
     private object              _sync;
     private int                 _timeout;
-    private Timer               _timer;
+    private CSTimer             _timer;
     private WebSocketStream     _websocketStream;
 
     #endregion
@@ -102,7 +103,7 @@ namespace WebSocketSharp.Net
 
       _sync = new object ();
       _timeout = 90000; // 90k ms for first request, 15k ms from then on.
-      _timer = new Timer (onTimeout, this, Timeout.Infinite, Timeout.Infinite);
+      _timer = new CSTimer(onTimeout, this, Timeout.Infinite, Timeout.Infinite);
 
       init ();
     }
